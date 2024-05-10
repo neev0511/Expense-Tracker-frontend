@@ -13,6 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Stylesheet -->
     <link rel="stylesheet" href="./css/style.css" />
   </head>
@@ -26,32 +27,37 @@
             <div class="balanceSheet">
               <h3>
                 Total Incomes:
-                <span id="totalIncome" class="green">ieufbw</span>
+                <span id="totalIncomeSpan" class="green"></span>
               </h3>
               <h3>
-                Total Expenses: <span id="totalExpense" class="red">iwefk</span>
+                Total Expenses: <span id="totalExpenseSpan" class="red"></span>
               </h3>
-              <h3>Balance: <span id="TotalBalance">eb</span></h3>
+              <h3>Balance: <span id="TotalBalanceSpan" class=""></span></h3>
             </div>
           </div>
           <!-- Expenditure -->
           <div class="user-amount-container">
-            <h3>Expenses</h3>
-            <p class="hide error" id="product-title-error">
-              Values cannot be empty
-            </p>
+            <h3>Add Transactions</h3>
             <input
               type="text"
               class="product-title"
-              id="product-title"
-              placeholder="Enter Title of Product"
+              id="title"
+              placeholder="Title"
             />
-            <input
-              type="number"
-              id="user-amount"
-              placeholder="Enter Cost of Product"
-            />
-            <button class="submit" id="check-amount">Check Amount</button>
+            <input type="number" id="amount" placeholder="Amount" />
+            <select id="transaction-type">
+              <option value="" disabled selected>Transaction type</option>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+            </select>
+            <input type="date" name="begin" value="" id="date" />
+            <button
+              class="submit"
+              id="add-transaction"
+              onclick="addTransaction()"
+            >
+              Add
+            </button>
           </div>
         </div>
         <!-- Output -->
@@ -61,20 +67,18 @@
       </div>
       <!-- List -->
       <div class="list">
-        <div class="list-container" id="list">
-          <div class="sublist-content bordergreen">
-            <button class="fa-solid fa-notes-medical edit"></button>
-            <p class="product">qwertyuiopasdfghjklz</p>
-            <p class="amount green">5678</p>
-            <button class="fa-solid fa-trash-can delete"></button>
-          </div>
-          <div class="sublist-content borderred">
-            <button class="fa-solid fa-notes-medical edit"></button>
-            <p class="product">qwertyuiopasdfghjklz</p>
-            <p class="amount red">5678</p>
-            <button class="fa-solid fa-trash-can delete"></button>
-          </div>
+        <div class="filter">
+          <p>Filter:</p>
+          <select id="filter">
+            <option value="daterev" selected>Newest to Oldest</option>
+            <option value="date">Oldest to Newest</option>
+            <option value="amountHigh">Amount High to Low</option>
+            <option value="amountLow">Amount Low to High</option>
+          </select>
+          <button class="submit" id="filter" onclick="filter()">Apply</button>
         </div>
+        <br />
+        <div class="list-container" id="list"></div>
       </div>
     </div>
     <!-- Script -->
