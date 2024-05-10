@@ -72,15 +72,14 @@ function sortAndDisplay(transactions) {
     }
     appendList.innerHTML += string;
     balance = totalIncome - totalExpense;
-    console.log(totalIncome, totalExpense, balance);
     document.querySelector("#totalIncomeSpan").innerText = totalIncome;
     document.querySelector("#totalExpenseSpan").innerText = totalExpense;
     let b = document.querySelector("#TotalBalanceSpan");
     b.innerText = balance;
     if (balance < 0) {
-      b.classList.toggle("red");
+      b.style.color = "rgb(254, 73, 73)";
     } else {
-      b.classList.toggle("green");
+      b.style.color = "rgb(10, 186, 57)";
     }
   }
 }
@@ -137,24 +136,38 @@ function addTransaction() {
   displayTransaction();
 }
 
-// function filter() {
-//   task = document.querySelector("#filter").value;
-//   if (task === "daterev") {
-//     displayTransaction();
-//   } else if (task === "date") {
-//     transactions = displayTransaction((t = false));
-//     transactions.sort(sortByProperty(date));
-//     sortAndDisplay(transactions);
-//   } else if (task === "amountHigh") {
-//     transactions = displayTransaction((t = false));
-//     transactions.sort(sortByProperty(date));
-//     sortAndDisplay(transactions);
-//   } else {
-//     transactions = displayTransaction((t = false));
-//     transactions.sort(sortByProperty(date)).reverse();
-//     sortAndDisplay(transactions);
-//   }
-// }
+function filter() {
+  let incomes;
+  let expenses;
+  transactions = [];
+  appendList.innerHTML = "";
+  axios.get(path + "get-incomes").then((response) => {
+    incomes = response.data;
+    axios.get(path + "get-expenses").then((response) => {
+      expenses = response.data;
+
+      for (let transaction of expenses) {
+        transactions.push(transaction);
+        totalExpense += transaction["amount"];
+      }
+      for (let task of incomes) {
+        transactions.push(task);
+        totalIncome += task["amount"];
+      }
+      task = document.querySelector("#filter").value;
+      if (task === "daterev") {
+        transactions.sort(sortByProperty(date));
+      } else if (task === "date") {
+        transactions.sort(sortByProperty(date)).reverse();
+      } else if (task === "amountHigh") {
+        transactions.sort(sortByProperty(date));
+      } else {
+        transactions.sort(sortByProperty(date)).reverse();
+      }
+      sortAndDisplay(transactions);
+    });
+  });
+}
 
 displayTransaction();
 
