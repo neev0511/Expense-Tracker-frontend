@@ -7,6 +7,16 @@
   body {
     background-color: #f7f9fd;
   }
+  h1 {
+    text-align: center;
+    margin-top: 30px;
+    color: #587ef4;
+    margin-bottom: 20px;
+  }
+  h2 {
+    text-align: center;
+    color: #f7f9fd;
+  }
   .wrapper {
     width: 90%;
     font-size: 16px;
@@ -48,6 +58,31 @@
     font-weight: 400;
     margin-bottom: 0.6em;
   }
+  .balanceSheet {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .green {
+    color: rgb(10, 186, 57);
+  }
+  .red {
+    color: rgb(254, 73, 73);
+  }
+  .bggreen {
+    background-color: rgb(10, 186, 57);
+  }
+  .bgred {
+    background-color: rgb(254, 73, 73);
+  }
+  .bordergreen {
+    border-left: 0.3em solid rgb(10, 186, 57);
+  }
+  .borderred {
+    border-left: 0.3em solid rgb(254, 73, 73);
+  }
+
   .container input:focus {
     border-color: #587ef4;
   }
@@ -95,18 +130,17 @@
   }
   .sublist-content {
     width: 100%;
-    border-left: 0.3em solid #587ef4;
     margin-bottom: 0.6em;
     padding: 0.5em 1em;
-    display: grid;
-    grid-template-columns: 3fr 2fr 1fr 1fr;
+    display: flex;
   }
   .product {
     font-weight: 500;
     color: #363d55;
+    margin-left: 70px;
   }
   .amount {
-    color: #414a67;
+    font-weight: 800;
     margin-left: 20%;
   }
   .icons-container {
@@ -123,16 +157,21 @@
   .error {
     color: #ff465a;
   }
-  .edit {
-    margin-left: auto;
-  }
-  .edit,
   .delete {
     background: transparent;
     cursor: pointer;
-    margin-right: 1.5em;
     border: none;
     color: #587ef4;
+    font-size: 20px;
+    margin-right: 20px;
+    margin-left: auto;
+  }
+  .edit {
+    background: transparent;
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    font-size: 30px;
   }
   @media screen and (max-width: 600px) {
     .wrapper {
